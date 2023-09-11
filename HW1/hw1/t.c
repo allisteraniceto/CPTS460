@@ -16,13 +16,13 @@
 // 1. Define the structure PROC 
 typedef struct proc{
     struct proc *next; //next pointer;   
-    int *kap;    /* saved sp; offset = 2 */
+    int *ksp;    /* saved sp(stack pointer); offset = 2 */
     int status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
     int priority;       // the priority!
     int pid;       // the process pid
     int ppid;       // the parent pid
     struct proc *parent;       // pointer to parent proc
-    int kstack[SSIZE];       // kmode stack of task. SSIZE = 1024.
+    int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
 }PROC;
 
 /**** USE YOUR OWN io.c with YOUR printf() here *****/
@@ -54,6 +54,22 @@ int initialize()
     Each proc's kstack contains:
     retPC, ax, bx, cx, dx, bp, si, di, flag;  all 2 bytes
     *****************************************************************/
+    PROC *p;
+    int i, j;
+    for (i=0; i<NPROC; i++){ //initalize all PROCs
+        p = &proc[i]; 
+        p->pid = i; //pid = 0,1,2,..NPROC-1
+        p->next = &proc[i+1]; //point to the next PROC
+        if(i){ //for PROCS other than proc[0] (process zero is the default)
+            p->kstack[SSIZE-1]=(int)body; //entry address of body()
+            for (j=2; j<10; j++){ //all saved registers = 0
+                p->kstack[SSIZE-j] = 0;
+            }
+            p->ksp = &(p->kstack[SSIZE-9]); //saved sp in PROC.kap
+        }
+    }
+
+
 }
 
 //3. Write a PROC *kfork()
@@ -101,7 +117,22 @@ PROC *kfork()
   return p;
   }
   *****************************************************************/
-
+    int i;
+    PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
+    if (!p){ //if no proccesses, kfork() does not work
+        printf("no more PROC, kfork() failed\n");
+    }
+    p->status = READY; //status = ready
+    p->priority = 1; //priority = 1 for all proc except p0
+    p->ppid = running->pid; //parent = running
+    /*initialize new process' kstack[]*/
+    for(i = 1; i<10; i++){
+        p->kstack[SSIZE-i] = 0; // all 0's
+    }
+    p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
+    p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
+    enqueue(&readyQueue,p); //enter p into readyQueue by priority
+    return p; //return child PROC pointer
 }
 
 // 4. Get a FREE PROC

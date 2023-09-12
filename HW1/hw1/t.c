@@ -32,7 +32,7 @@ int  color = 0x0C;
 // define the functions so things don't break! cause c!
 int body();  
 int initialize();
-PROC *get_proc(PROC **list);
+PROC *get_proc();
 put_proc(PROC *p);
 enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
@@ -138,12 +138,12 @@ PROC *kfork()
 // 4. Get a FREE PROC
 // get a FREE PROC from freeList; return PROC pointer; 
 // return 0 if no more FREE PROCs.
-PROC *get_proc(PROC **list)
+PROC *get_proc()
 {
-    
     // return the next proc (dequeue) from the freeList
-    if (freeList != NULL)
-        return dequeue(&freeList);
+    
+	if (freeList != NULL)
+        return dequeue(&freeList); //get a free process by dequeue'ing it from freeList
     return 0; //return 0 if there are no more free processes
 }
 
@@ -153,6 +153,15 @@ put_proc(PROC *p)
     // even though enqueue is similar, they're different enough to mean this should be unique...
     // set the status to free and add to the linked list freeList
     // if we had no free procs, this'll be our first!
+	
+	p->status = FREE; //set process' status to FREE (0 = True)
+	if (freeList == NULL){ //if no free process, add first one to freeList
+		freeList = p;
+		p->next = NULL;
+	}else{ //if freeList is not empty, insert between freeList and freeList->next
+		p->next = freeList->next;  
+		free->next = p; 
+	}	
 }
 
 

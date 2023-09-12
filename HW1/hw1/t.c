@@ -142,7 +142,9 @@ PROC *get_proc(PROC **list)
 {
     
     // return the next proc (dequeue) from the freeList
-
+    if (freeList != NULL)
+        return dequeue(&freeList);
+    return 0; //return 0 if there are no more free processes
 }
 
 // Enter p into freeList;

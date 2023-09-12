@@ -32,7 +32,7 @@ int  color = 0x0C;
 // define the functions so things don't break! cause c!
 int body();  
 int initialize();
-PROC *get_proc();
+PROC *get_proc(PROC **list);
 put_proc(PROC *p);
 enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
@@ -138,7 +138,7 @@ PROC *kfork()
 // 4. Get a FREE PROC
 // get a FREE PROC from freeList; return PROC pointer; 
 // return 0 if no more FREE PROCs.
-PROC *get_proc()
+PROC *get_proc(PROC **list)
 {
     
     // return the next proc (dequeue) from the freeList

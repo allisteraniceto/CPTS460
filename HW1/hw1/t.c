@@ -160,7 +160,7 @@ put_proc(PROC *p)
 		p->next = NULL;
 	}else{ //if freeList is not empty, insert between freeList and freeList->next
 		p->next = freeList->next;  
-		free->next = p; 
+		freeList->next = p; 
 	}	
 }
 

@@ -21,7 +21,7 @@ typedef struct proc{
     int priority;       // the priority!
     int pid;       // the process pid
     int ppid;       // the parent pid
-    struct proc *parent;       // pointer to parent proc
+    //struct proc *parent;       // pointer to parent proc
     int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
 }PROC;
 

@@ -243,10 +243,10 @@ Use the MODIFIED scheduler() function propose in class
 int scheduler()
 {
   //Use the MODIFIED scheduler() function propose in class
-	if (running->status == READY){
-		enqueue(&readyQueue, running);
+	if (running->status == READY){ 
+		enqueue(&readyQueue, running); //put running process in readyQueue
 	}
-	running = dequeue(&readyQueue);
+	running = dequeue(&freeList); //remove from freeList
 }
 
 

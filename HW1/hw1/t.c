@@ -201,7 +201,6 @@ enqueue(PROC **queue, PROC *p)
 		//then insert process in queue
 		prev->next = p;
 		p->next = current;
-    }
 }
 
 //Remove a PROC (highest priority in the next homework) 

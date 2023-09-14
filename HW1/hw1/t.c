@@ -124,7 +124,7 @@ PROC *kfork()
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
-    printf("starting kfork()\n");
+    printf("starting kfork()\n"); // this works
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
@@ -182,6 +182,7 @@ enqueue(PROC **queue, PROC *p)
 {	
 	PROC *prev, *current;
      // Case 1: empty queue. make the passed process a new queue!
+    printf("makes it to enqueu\n");
     if ((*queue) == NULL)
     {
 		*queue = p; //queue head point first proces

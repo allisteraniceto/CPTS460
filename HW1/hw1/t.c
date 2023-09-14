@@ -147,8 +147,9 @@ PROC *get_proc(PROC **list)
 {
     // return the next proc (dequeue) from the freeList
     
-	if (list != NULL)
+	if (list != NULL){
         return dequeue(&list); //get a free process by dequeue'ing it from freeList
+    }
     return 0; //return 0 if there are no more free processes
 }
 
@@ -323,7 +324,7 @@ int body()
 				break;
 			case '?': //print help instructions
 				break;
-			defualt:
+			default:
 				printf("INVALID CHARACTER");
 		}
 

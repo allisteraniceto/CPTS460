@@ -246,16 +246,19 @@ int scheduler()
 	if (running->status == READY){ 
 		enqueue(&readyQueue, running); //put running process in readyQueue
 	}
-	running = dequeue(&freeList); //remove from freeList
+	running = dequeue(&readyQueue); //remove from readyQueue to running
 }
 
 
 // 8. print info on available commands.
 help()
 {
+	//print the info for commands q, f, r, ?
     printf("\nAvailable Commands: \n");
     printf(" - s: Switch to the next ready process.\n");
-  // print the info for commands q, f, r, ?
+	printf(" - q: Exit.\n");
+	printf(" - ?: Display help instructions");
+	printf(" - f: Fork a child process");
 }
 // Add new commands
 /****************************************************************
@@ -296,7 +299,11 @@ int body()
         // change the text color based on the process id!
         color = 0x01 + (running->pid % NPROC); 
         printf("\n******************************\n");
-        printf("Currently Running Process #%d", running->pid);      
-    }
+        printf("Currently Running Process #%d\n", running->pid);      
+    	printf("Ready Queue: ");
+		printQueue(readyQueue);
+		printf("Infput a command [s | q | f | r | ?]:");
+		//scanf(
+	}
 }
 

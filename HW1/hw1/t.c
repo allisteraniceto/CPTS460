@@ -68,8 +68,9 @@ int initialize()
             p->ksp = &(p->kstack[SSIZE-9]); //saved sp in PROC.kap
         }
     }
-
-
+	proc[NPROC-1].next = &proc[0]; //all procceses form a circular list
+	running = &proc[0]; //p0 is running
+	printf("init complete");
 }
 
 //3. Write a PROC *kfork()

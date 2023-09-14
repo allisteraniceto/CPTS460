@@ -182,15 +182,15 @@ enqueue(PROC **queue, PROC *p)
      // Case 1: empty queue. make the passed process a new queue!
     if ((*queue) == NULL)
     {
-		queue = p; //queue head point first proces
+		*queue = p; //queue head point first proces
 		p->next = NULL; //no next process
 		return;
     }
     // Case 2: non-empty queue, new process has greatest priority. insert new process onto head of the queue.
     else if (p->priority > (*queue)->priority)
     {
-		p->next = queue; //new process will point to head
-		queue = p; //head will now point to new process
+		p->next = *queue; //new process will point to head
+		*queue = p; //head will now point to new process
 		return;
     }
     // Case 3: non-empty queue, new process needs to be inserted somewhere in it. look through the processes in the queue until we find a spot where the process' priority will be properly respected.

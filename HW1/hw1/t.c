@@ -129,9 +129,9 @@ PROC *kfork()
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
-    for(i = 1; i<10; i++){
+    for(i = 1; i<10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
-        printf("1 here\n");
+        printf("1 here, size: %d\n", SSIZE);
     }
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp

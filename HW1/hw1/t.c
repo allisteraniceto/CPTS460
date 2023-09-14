@@ -124,6 +124,7 @@ PROC *kfork()
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
+    printf("starting kfork()\n");
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
@@ -135,7 +136,7 @@ PROC *kfork()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
     enqueue(&readyQueue,p); //enter p into readyQueue by priority
     
-	printf("finished running kfork()!");
+	printf("finished running kfork()!\n");
 
 	return p; //return child PROC pointer
 }

@@ -121,7 +121,8 @@ PROC *kfork()
     PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
     if (!p){ //if no proccesses, kfork() does not work
         printf("no more PROC, kfork() failed\n");
-    }
+    	return 0;
+	}
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
@@ -132,7 +133,10 @@ PROC *kfork()
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
     enqueue(&readyQueue,p); //enter p into readyQueue by priority
-    return p; //return child PROC pointer
+    
+	printf("finished running kfork()!");
+
+	return p; //return child PROC pointer
 }
 
 // 4. Get a FREE PROC

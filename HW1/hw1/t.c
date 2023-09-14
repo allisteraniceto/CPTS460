@@ -161,11 +161,11 @@ put_proc(PROC **list, PROC *p)
 	
 	p->status = FREE; //set process' status to FREE (0 = True)
 	if (list == NULL){ //if no free process, add first one to freeList
-		list = p;
+		*list = p;
 		p->next = NULL;
 	}else{ //if freeList is not empty, insert between freeList and freeList->next
-		p->next = list->next;  
-		list->next = p; 
+		p->next = *list;  
+		*list = p; 
 	}	
 }
 

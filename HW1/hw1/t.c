@@ -126,9 +126,9 @@ PROC *kfork()
 	}
     printf("starting kfork()\n"); // this works
     p->status = READY; //status = ready
-    printf("1 here\n");
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
+    printf("1 here\n");
     /*initialize new process' kstack[]*/
     for(i = 1; i<10; i++){
         p->kstack[SSIZE-i] = 0; // all 0's

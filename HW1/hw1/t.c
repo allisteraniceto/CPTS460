@@ -258,7 +258,7 @@ help()
     printf(" - s: Switch to the next ready process.\n");
 	printf(" - q: Exit.\n");
 	printf(" - f: Fork a child process");
-	printf(" - s: Switch Process");
+	printf(" - r: Resurrect all zombie processes");
 	printf(" - ?: Display help instructions");
 }
 // Add new commands
@@ -304,17 +304,18 @@ int body()
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
 		printf("Infput a command [s | q | f | r | ?]:");
-		scanf("%c", c);
+		c = getc();
 		switch(c){
-			case s:
+			case 's': //call twsitch() to switch process
+				tswitch();
 				break;
-			case q:
+			case 'q': //call quit() to exit program
 				break;
-			case f:
+			case 'f': //kfork() a child process
 				break;
-			case r:
+			case 'r': //resurrect all zombie processes
 				break;
-			case ?:
+			case '?': //print help instructions
 				break;
 			defualt:
 				printf("INVALID CHARACTER");

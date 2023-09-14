@@ -257,8 +257,9 @@ help()
     printf("\nAvailable Commands: \n");
     printf(" - s: Switch to the next ready process.\n");
 	printf(" - q: Exit.\n");
-	printf(" - ?: Display help instructions");
 	printf(" - f: Fork a child process");
+	printf(" - s: Switch Process");
+	printf(" - ?: Display help instructions");
 }
 // Add new commands
 /****************************************************************
@@ -303,7 +304,22 @@ int body()
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
 		printf("Infput a command [s | q | f | r | ?]:");
-		//scanf(
+		scanf("%c", c);
+		switch(c){
+			case s:
+				break;
+			case q:
+				break;
+			case f:
+				break;
+			case r:
+				break;
+			case ?:
+				break;
+			defualt:
+				printf("INVALID CHARACTER");
+		}
+
 	}
 }
 

@@ -33,7 +33,7 @@ int  color = 0x0C;
 int body();  
 int initialize();
 PROC *get_proc(PROC **list);
-put_proc(PROC *p);
+put_proc(PROC **list, PROC *p);
 enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
 printQueue(PROC *queue);
@@ -153,19 +153,19 @@ PROC *get_proc(PROC **list)
 }
 
 // Enter p into freeList;
-put_proc(PROC *p)
+put_proc(PROC **list, PROC *p)
 {
     // even though enqueue is similar, they're different enough to mean this should be unique...
     // set the status to free and add to the linked list freeList
     // if we had no free procs, this'll be our first!
 	
 	p->status = FREE; //set process' status to FREE (0 = True)
-	if (freeList == NULL){ //if no free process, add first one to freeList
-		freeList = p;
+	if (list == NULL){ //if no free process, add first one to freeList
+		list = p;
 		p->next = NULL;
 	}else{ //if freeList is not empty, insert between freeList and freeList->next
-		p->next = freeList->next;  
-		freeList->next = p; 
+		p->next = list->next;  
+		list->next = p; 
 	}	
 }
 
@@ -199,13 +199,14 @@ enqueue(PROC **queue, PROC *p)
 		prev = NULL; //used for previous process
 		current = *queue; //head process
 		//traverse through list and compare priorities
-		while(current && p->priority <= current->priority)
+		while(current && p->priority <= current->priority){
 			prev = current; 
 			current = current->next; //compare to next priority
 		}
 		//then insert process in queue
 		prev->next = p;
 		p->next = current;
+	}
 }
 
 //Remove a PROC (highest priority in the next homework) 

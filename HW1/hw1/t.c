@@ -17,11 +17,10 @@
 typedef struct proc{
     struct proc *next; //next pointer;   
     int *ksp;    /* saved sp(stack pointer); offset = 2 */
+	int pid;         //the process pid
+	int ppid;        //the parent pid
     int status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
     int priority;       // the priority!
-    int pid;       // the process pid
-    int ppid;       // the parent pid
-    //struct proc *parent;       // pointer to parent proc
     int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
 }PROC;
 
@@ -124,6 +123,7 @@ PROC *kfork()
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
+	printf("made it here\n");
     printf("starting kfork()\n"); // this works
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
@@ -131,7 +131,7 @@ PROC *kfork()
     /*initialize new process' kstack[]*/
     for(i = 1; i<10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
-        printf("1 here, size: %d\n", SSIZE);
+        printf("1 here, size: %d index #%d\n", SSIZE,i);
     }
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp

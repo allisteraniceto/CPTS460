@@ -59,11 +59,13 @@ int initialize()
         p = &proc[i]; 
         p->pid = i; //pid = 0,1,2,..NPROC-1
 		p->status = FREE;
+        p->priority = 0;
         p->ppid = 0; //parent process will be process 0 always
 		p->next = &proc[i+1]; //point to the next PROC
     }
 	proc[NPROC-1].next = NULL; //last proc points to null
 	running = &proc[0]; //p0 is running
+    running->status = &proc[0];
 	freeList = &proc[1];
 	readyQueue = 0;
 	printf("init complete");

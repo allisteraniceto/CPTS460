@@ -126,7 +126,7 @@ PROC *kfork()
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
-    for(i = 1; i<10; i++){ //infinite loop here
+    for(i = 1; i < 10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
         printf("1 here, size: %d index #%d\n", SSIZE-i,i);
 		getc();

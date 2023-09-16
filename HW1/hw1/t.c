@@ -60,12 +60,10 @@ int initialize()
         p->pid = i; //pid = 0,1,2,..NPROC-1
 		p->status = FREE;
         p->ppid = 0; //parent process will be process 0 always
-		p->parent = 0;
 		p->next = &proc[i+1]; //point to the next PROC
     }
 	proc[NPROC-1].next = NULL; //last proc points to null
 	running = &proc[0]; //p0 is running
-	running->parent = &proc[0];
 	freeList = &proc[1];
 	readyQueue = 0;
 	printf("init complete");
@@ -118,7 +116,8 @@ PROC *kfork()
   *****************************************************************/
     int i;
     PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
-    if (!p){ //if no proccesses, kfork() does not work
+    printf("process: %d", p->pid);
+	if (!p){ //if no proccesses, kfork() does not work
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
@@ -129,7 +128,8 @@ PROC *kfork()
     /*initialize new process' kstack[]*/
     for(i = 1; i<10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
-        printf("1 here, size: %d index #%d\n", SSIZE,i);
+        printf("1 here, size: %d index #%d\n", SSIZE-i,i);
+		getc();
     }
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp

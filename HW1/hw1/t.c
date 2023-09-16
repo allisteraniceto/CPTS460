@@ -147,8 +147,8 @@ PROC *get_proc(PROC **list)
 {
     // return the next proc (dequeue) from the freeList
     
-	if (list != NULL){
-        return dequeue(&list); //get a free process by dequeue'ing it from freeList
+	if (*list != NULL){
+        return dequeue(list); //get a free process by dequeue'ing it from freeList
     }
     return 0; //return 0 if there are no more free processes
 }
@@ -161,7 +161,7 @@ put_proc(PROC **list, PROC *p)
     // if we had no free procs, this'll be our first!
 	
 	p->status = FREE; //set process' status to FREE (0 = True)
-	if (list == NULL){ //if no free process, add first one to freeList
+	if (*list == NULL){ //if no free process, add first one to freeList
 		*list = p;
 		p->next = NULL;
 	}else{ //if freeList is not empty, insert between freeList and freeList->next
@@ -318,18 +318,20 @@ int body()
 				tswitch();
 				break;
 			case 'q': //call quit() to exit program
-				
+				printf("quit");
 				break;
 			case 'f': //kfork() a child process
 				kfork();
 				break;
 			case 'r': //resurrect all zombie processes
+                prinf("ressurct");
 				break;
 			case '?': //print help instructions
 				help();
 				break;
 			default:
 				printf("INVALID CHARACTER");
+                break;
 		}
 
 	}

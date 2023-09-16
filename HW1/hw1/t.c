@@ -114,7 +114,7 @@ PROC *kfork()
   return p;
   }
   *****************************************************************/
-    int i;
+	int i;  
     PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
     printf("process: %d", p->pid);
 	if (!p){ //if no proccesses, kfork() does not work
@@ -219,7 +219,7 @@ PROC *dequeue(PROC **queue){
     // and then modify the queue to remove the proc we need...
     // return the proc we deserve!
 
-	PROC *p = *queue; //get pprocess from queue
+	PROC *p = (*queue); //get pprocess from queue
 	if (*queue != NULL){ //if process is not empty
 		*queue = (*queue)->next;
 	}

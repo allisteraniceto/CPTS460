@@ -54,20 +54,22 @@ int initialize()
     retPC, ax, bx, cx, dx, bp, si, di, flag;  all 2 bytes
     *****************************************************************/
     PROC *p;
-    int i, j;
+    int i;
     for (i=0; i<NPROC; i++){ //initalize all PROCs
         p = &proc[i]; 
         p->pid = i; //pid = 0,1,2,..NPROC-1
 		p->status = FREE;
         p->priority = 0;
-        p->ppid = 0; //parent process will be process 0 always
 		p->next = &proc[i+1]; //point to the next PROC
     }
 	proc[NPROC-1].next = NULL; //last proc points to null
-	running = &proc[0]; //p0 is running
-    running->status = &proc[0];
-	freeList = &proc[1];
+	freeList = &proc[0]; //all procs are in freeList
 	readyQueue = 0;
+	/*************** create p0 as running ****************/
+	p = get_proc(&freeList);
+	p->ppid = 0;
+    p->status = READY;
+	running = p;
 	printf("init complete");
 }
 
@@ -123,16 +125,12 @@ PROC *kfork()
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
-	printf("made it here\n");
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
     for(i = 1; i < 10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
-        printf("1 here, size: %d index #%d\n", SSIZE-i,i);
-		getc();
-    }
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
     enqueue(&readyQueue,p); //enter p into readyQueue by priority

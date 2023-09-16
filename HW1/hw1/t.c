@@ -129,7 +129,7 @@ PROC *kfork()
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
-    for(i = 1; i < 10; i++){ //infinite loop here
+    for(i = 1; i < 10; i++) //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
@@ -137,7 +137,7 @@ PROC *kfork()
     
 	printf("finished running kfork()!\n");
 
-	return p; //return child PROC pointer
+	return p; //return child PROC pointer:
 }
 
 // 4. Get a FREE PROC

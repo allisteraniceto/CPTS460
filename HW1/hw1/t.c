@@ -58,17 +58,16 @@ int initialize()
     for (i=0; i<NPROC; i++){ //initalize all PROCs
         p = &proc[i]; 
         p->pid = i; //pid = 0,1,2,..NPROC-1
-        p->next = &proc[i+1]; //point to the next PROC
-        if(i){ //for PROCS other than proc[0] (process zero is the default)
-            p->kstack[SSIZE-1]=(int)body; //entry address of body()
-            for (j=2; j<10; j++){ //all saved registers = 0
-                p->kstack[SSIZE-j] = 0;
-            }
-            p->ksp = &(p->kstack[SSIZE-9]); //saved sp in PROC.kap
-        }
+		p->status = FREE;
+        p->ppid = 0; //parent process will be process 0 always
+		p->parent = 0;
+		p->next = &proc[i+1]; //point to the next PROC
     }
-	proc[NPROC-1].next = &proc[0]; //all procceses form a circular list
+	proc[NPROC-1].next = NULL; //last proc points to null
 	running = &proc[0]; //p0 is running
+	running->parent = &proc[0];
+	freeList = &proc[1];
+	readyQueue = 0;
 	printf("init complete");
 }
 
@@ -124,7 +123,6 @@ PROC *kfork()
     	return 0;
 	}
 	printf("made it here\n");
-    printf("starting kfork()\n"); // this works
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
@@ -186,15 +184,15 @@ enqueue(PROC **queue, PROC *p)
     printf("makes it to enqueu\n");
     if ((*queue) == NULL)
     {
-		*queue = p; //queue head point first proces
-		p->next = NULL; //no next process
+		(*queue) = p; //queue head point first proces
+		(*queue)->next = NULL; //no next process
 		return;
     }
     // Case 2: non-empty queue, new process has greatest priority. insert new process onto head of the queue.
     else if (p->priority > (*queue)->priority)
     {
 		p->next = *queue; //new process will point to head
-		*queue = p; //head will now point to new process
+		(*queue) = p; //head will now point to new process
 		return;
     }
     // Case 3: non-empty queue, new process needs to be inserted somewhere in it. look through the processes in the queue until we find a spot where the process' priority will be properly respected.
@@ -231,7 +229,7 @@ PROC *dequeue(PROC **queue){
 //6. print the queue entries in [pid, priority]->  format;
 printQueue(PROC *queue)
 {
-    PROC *p = queue;
+    PROC *tmp = queue;
     // if we don't have a queue, say "There are no processes in this queue"
     // if we do, print each item in the queue
 	if (queue == NULL){
@@ -239,8 +237,8 @@ printQueue(PROC *queue)
 	}
 	//print queue list
 	while (queue != NULL){
-		printf("[%d, %d]->",p->pid, p->priority);
-		p = p->next;
+		printf("[%d, %d]->",tmp->pid, tmp->priority);
+		tmp = tmp->next;
 	}
 	printf("NULL\n"); //NULL at the end of list
 }
@@ -320,12 +318,15 @@ int body()
 				tswitch();
 				break;
 			case 'q': //call quit() to exit program
+				
 				break;
 			case 'f': //kfork() a child process
+				kfork();
 				break;
 			case 'r': //resurrect all zombie processes
 				break;
 			case '?': //print help instructions
+				help();
 				break;
 			default:
 				printf("INVALID CHARACTER");

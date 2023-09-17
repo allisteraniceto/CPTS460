@@ -55,6 +55,7 @@ int initialize()
     *****************************************************************/
     PROC *p;
     int i;
+	printf("made it here");
     for (i=0; i<NPROC; i++){ //initalize all PROCs
         p = &proc[i]; 
         p->pid = i; //pid = 0,1,2,..NPROC-1
@@ -125,12 +126,15 @@ PROC *kfork()
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
+	printf("made it here");
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
-    for(i = 1; i < 10; i++) //infinite loop here
+    for(i = 1; i < 10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
+		print("hello");
+	}
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
     enqueue(&readyQueue,p); //enter p into readyQueue by priority
@@ -312,6 +316,7 @@ int body()
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
 		printf("Infput a command [s | q | f | r | ?]:");
+		printf("HELLOOOO");
 		c = getc();
 		switch(c){
 			case 's': //call twsitch() to switch process
@@ -324,7 +329,7 @@ int body()
 				kfork();
 				break;
 			case 'r': //resurrect all zombie processes
-                prinf("ressurct");
+                printf("ressurct");
 				break;
 			case '?': //print help instructions
 				help();

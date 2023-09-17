@@ -121,25 +121,20 @@ PROC *kfork()
   *****************************************************************/
 	int i;  
     PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
-    printf("process: %d", p->pid);
 	if (!p){ //if no proccesses, kfork() does not work
         printf("no more PROC, kfork() failed\n");
     	return 0;
 	}
-	printf("made it here");
     p->status = READY; //status = ready
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
     for(i = 1; i < 10; i++){ //infinite loop here
         p->kstack[SSIZE-i] = 0; // all 0's
-		print("hello");
 	}
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
     p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
-    enqueue(&readyQueue,p); //enter p into readyQueue by priority
-    
-	printf("finished running kfork()!\n");
+    enqueue(&readyQueue,p); //enter p into readyQueue by priority  
 
 	return p; //return child PROC pointer:
 }
@@ -240,7 +235,7 @@ printQueue(PROC *queue)
 		return;
 	}
 	//print queue list
-	while (queue != NULL){
+	while (tmp != NULL){
 		printf("[%d, %d]->",tmp->pid, tmp->priority);
 		tmp = tmp->next;
 	}
@@ -316,14 +311,14 @@ int body()
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
 		printf("Infput a command [s | q | f | r | ?]:");
-		printf("HELLOOOO");
 		c = getc();
 		switch(c){
 			case 's': //call twsitch() to switch process
 				tswitch();
 				break;
-			case 'q': //call quit() to exit program
-				printf("quit");
+			case 'q': //call exit() to exit program
+				printf("quitting...");
+				//exit(0);
 				break;
 			case 'f': //kfork() a child process
 				kfork();

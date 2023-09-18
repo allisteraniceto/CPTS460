@@ -55,7 +55,6 @@ int initialize()
     *****************************************************************/
     PROC *p;
     int i;
-	printf("made it here");
     for (i=0; i<NPROC; i++){ //initalize all PROCs
         p = &proc[i]; 
         p->pid = i; //pid = 0,1,2,..NPROC-1
@@ -180,7 +179,6 @@ enqueue(PROC **queue, PROC *p)
 {	
 	PROC *prev, *current;
      // Case 1: empty queue. make the passed process a new queue!
-    printf("makes it to enqueu\n");
     if ((*queue) == NULL)
     {
 		(*queue) = p; //queue head point first proces
@@ -318,7 +316,7 @@ int body()
 				break;
 			case 'q': //call exit() to exit program
 				printf("quitting...");
-				//exit(0);
+				//exit();
 				break;
 			case 'f': //kfork() a child process
 				kfork();

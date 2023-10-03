@@ -8,6 +8,8 @@
 #define SLEEP     2
 #define BLOCK     3
 #define ZOMBIE    4
+#define DEAD      5
+#define STOP      6
 
 // define null, cause it ain't defined otherwise!
 #define NULL  0
@@ -22,6 +24,7 @@ typedef struct proc{
     int status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
     int priority;       // the priority!
     int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
+    int event;
 }PROC;
 
 /**** USE YOUR OWN io.c with YOUR printf() here *****/
@@ -84,59 +87,7 @@ int initialize()
 // enter the proc into the readyQueue, since it's now ready for primetime!
 // return the new proc!!!
 // function to create a process DYNAMICALLY
-PROC *kfork()
-{
-  /****************************************************************
-  Instead of creating ALL the PROCs at once, write a
-  PROC *kfork()
-  function to create a process DYNAMICALLY.
 
-  PROC *kfork()
-  {
-  (1). PROC *p = get_proc(); to get a FREE PROC from freeList;
-  if none, return 0 for FAIL;
-
-  (2). Initialize the new PROC p with
-  --------------------------
-  status   = READY;
-  priority = 1;
-  ppid = running pid;
-  parent = running;
-  --------------------------
-
-  *********** THIS IS THE MAIN PART OF THE ASSIGNMENT!!!***********
-  INITIALIZE p's kstack to make it start from body() when it runs.
-
-  To do this, PRETNED that the process called tswitch() from the
-  the entry address of body() and executed the SAVE part of tswitch()
-  to give up CPU before.
-  Initialize its kstack[ ] and ksp to comform to these.
-
-  enter p into readyQueue;
-  *****************************************************************
-
-  return p;
-  }
-  *****************************************************************/
-	int i;  
-    PROC *p = get_proc(&freeList); //to get FREE PROC from freeList
-	if (!p){ //if no proccesses, kfork() does not work
-        printf("no more PROC, kfork() failed\n");
-    	return 0;
-	}
-    p->status = READY; //status = ready
-    p->priority = 1; //priority = 1 for all proc except p0
-    p->ppid = running->pid; //parent = running
-    /*initialize new process' kstack[]*/
-    for(i = 1; i < 10; i++){ //infinite loop here
-        p->kstack[SSIZE-i] = 0; // all 0's
-	}
-    p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
-    p->ksp = &p->kstack[SSIZE-9]; //proc saved sp
-    enqueue(&readyQueue,p); //enter p into readyQueue by priority  
-
-	return p; //return child PROC pointer:
-}
 
 // 4. Get a FREE PROC
 // get a FREE PROC from freeList; return PROC pointer; 
@@ -167,10 +118,6 @@ put_proc(PROC **list, PROC *p)
 		*list = p; 
 	}	
 }
-
-
-
-
 
 
 

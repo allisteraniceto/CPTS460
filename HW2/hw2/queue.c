@@ -1,3 +1,5 @@
+#include "t.c"
+
 // 5.Enter p into queue (by priority in the next homework)
 // create an enqueue method, use three cases:
 // Case 1: empty queue. make the passed process a new queue!

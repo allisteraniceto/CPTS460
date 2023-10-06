@@ -58,7 +58,7 @@ PROC *kfork()
     p->priority = 1; //priority = 1 for all proc except p0
     p->ppid = running->pid; //parent = running
     /*initialize new process' kstack[]*/
-    for(i = 1; i < 10; i++){ //infinite loop here
+    for(i = 1; i < 10; i++){
         p->kstack[SSIZE-i] = 0; // all 0's
 	}
     p->kstack[SSIZE-1] = (int)body; //resume point = address of body()
@@ -97,5 +97,29 @@ int wakeup(int event){
 
 //wait for a zombie child 
 int kwait(int *status){
-    
+    int i;
+    int zpid;
+    PROC *p;
+    if (p->ppid == 0){ //if no parent pp
+        return -1;
+    }
+    while(1){ //caller has children
+    //search for any zombie child
+        for(i=1; i<NPROC; i++){
+            p = &proc[i];
+            if (p->status == ZOMBIE){
+                zpid = p->pid; //get zobie child pid
+
+            }
+        }
+}
+
+//process termination
+int kexit(int exitValue){
+    //1. erase process user-mode context, e.g. close file descriptors, 
+    //   release resources, deallocate user-mode image memory, etc.
+    //2. dispose of children processes, if any. 
+    //3. record exitValue in PROC.exitCode for parent to get.
+    //4. become a ZOMBIE (but do not free the PROC)
+    //5. wakeup parent and, if needed, also the INIT process P1.
 }

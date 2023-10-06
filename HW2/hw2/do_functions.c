@@ -29,11 +29,15 @@ void do_stop(){
 }
 
 //let stopped process continue
-void do_continue(){
+do_continue(PROC *p){
     //ask for pid to be continued
-    //validate pid e.g. 0 < pid  < NPROC
+    if (p->pid > 0 && p->pid < NPROC){ //validate pid e.g. 0 < pid  < NPROC
+        return 0;
+    }
     //find the PROC BY pid
-    //if PROC.status is STOP, change its status to READY and enter into readyQueue 
-    
-
+    if(p->status == STOP){//if PROC.status is STOP, change its status to READY and enter into readyQueue 
+        p->status = READY;
+        enqueue(&readyQueue, p);
+    } 
 }
+

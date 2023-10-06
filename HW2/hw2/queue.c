@@ -8,6 +8,8 @@
 
 enqueue(PROC **queue, PROC *p)
 {	
+	//for priority: 0-5, 5 is best
+
 	PROC *prev, *current;
      // Case 1: empty queue. make the passed process a new queue!
     if ((*queue) == NULL)

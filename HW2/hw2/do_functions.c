@@ -1,4 +1,5 @@
-#include "t.c"
+#include "misc.h"
+#include "structs.h"
 
 
 int do_tswitch(){

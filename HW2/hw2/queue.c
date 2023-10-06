@@ -1,4 +1,36 @@
-#include "t.c"
+#include "queue.h"
+#include "structs.h"
+
+// 4. Get a FREE PROC
+// get a FREE PROC from freeList; return PROC pointer; 
+// return 0 if no more FREE PROCs.
+PROC *get_proc(PROC **list)
+{
+    // return the next proc (dequeue) from the freeList
+    
+	if (*list != NULL){
+        return dequeue(list); //get a free process by dequeue'ing it from freeList
+    }
+    return 0; //return 0 if there are no more free processes
+}
+
+// Enter p into freeList;
+put_proc(PROC **list, PROC *p)
+{
+    // even though enqueue is similar, they're different enough to mean this should be unique...
+    // set the status to free and add to the linked list freeList
+    // if we had no free procs, this'll be our first!
+	
+	p->status = FREE; //set process' status to FREE (0 = True)
+	if (*list == NULL){ //if no free process, add first one to freeList
+		*list = p;
+		p->next = NULL;
+	}else{ //if freeList is not empty, insert between freeList and freeList->next
+		p->next = *list;  
+		*list = p; 
+	}	
+}
+
 
 // 5.Enter p into queue (by priority in the next homework)
 // create an enqueue method, use three cases:
@@ -72,3 +104,18 @@ printQueue(PROC *queue)
 	}
 	printf("NULL\n"); //NULL at the end of list
 }
+
+// 7. Scheduler
+/****************************************************************
+Use the MODIFIED scheduler() function propose in class
+*****************************************************************/
+// schedule ALL the processes!
+int scheduler()
+{
+  //Use the MODIFIED scheduler() function propose in class
+	if (running->status == READY){ 
+		enqueue(&readyQueue, running); //put running process in readyQueue
+	}
+	running = dequeue(&readyQueue); //remove from readyQueue to running
+}
+

@@ -1,8 +1,19 @@
-#include "t.c"
+#include "structs.h"
 
 //kernal.c file
 //kernal main set of functions: kfork, kprint, sleep, wakeup, kexit, kwait
 
+//3. Write a PROC *kfork()
+// get the proc...
+// if there were no procs, report kfork's failure  
+// initialize the proc status, priority, ppid, parent...
+// now to setup the kstack!
+// first things first, lets clean up the registers by setting them to 0.
+// now we need to make sure to call tswitch from body when the proc runs...
+// set the ksp to point to the top of the stack  
+// enter the proc into the readyQueue, since it's now ready for primetime!
+// return the new proc!!!
+// function to create a process DYNAMICALLY
 PROC *kfork()
 {
   /****************************************************************

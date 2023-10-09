@@ -34,15 +34,33 @@ PROC proc[NPROC], *running, *freeList, *readyQueue;
 int  procSize = sizeof(PROC);
 int  color = 0x0C;
 // define the functions so things don't break! cause c!
+
+//misc.c 
 int body();  
 int initialize();
+help();
+
+//queue.c
 PROC *get_proc(PROC **list);
 put_proc(PROC **list, PROC *p);
 enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
 printQueue(PROC *queue);
-PROC *kfork();
 int scheduler();
-help();
+
+//kernel.c
+PROC *kfork();
+int ksleep(int event);
+int kwakeup(int event);
+int kwait(int *status);
+int kexit(int exitValue);
+
+//do_functions.c
+int do_tswitch();
+int do_kfork();
+int do_exit();
+int do_stop();
+int do_continue();
+
 
 #endif

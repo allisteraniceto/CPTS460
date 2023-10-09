@@ -17,27 +17,31 @@ int do_kfork(){
 }
 
 //kill running process
-void do_exit(){
+do_exit(){
     running->status = DEAD;
     tswitch();
 }
 
 //change running proc status to stop and call tswitch()
-void do_stop(){
+do_stop(){
     running->status = STOP;
     tswitch();
 }
 
 //let stopped process continue
-do_continue(PROC *p){
-    //ask for pid to be continued
-    if (p->pid > 0 && p->pid < NPROC){ //validate pid e.g. 0 < pid  < NPROC
+do_continue(){
+    PROC *p;
+    int i;
+    //ask for pid to be continued (needs to be fixed)
+    if (running->pid > 0 && running->pid < NPROC){ //validate pid e.g. 0 < pid  < NPROC
         return 0;
     }
     //find the PROC BY pid
-    if(p->status == STOP){//if PROC.status is STOP, change its status to READY and enter into readyQueue 
-        p->status = READY;
-        enqueue(&readyQueue, p);
-    } 
+    for (i=0; i < NPROC; i++){
+        if(readyQueue->status == STOP){//if PROC.status is STOP, change its status to READY and enter into readyQueue 
+            p = &proc[i];
+            enqueue(&readyQueue, p);
+        } 
+    }
 }
 

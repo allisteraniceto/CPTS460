@@ -69,7 +69,7 @@ PROC *kfork()
 }
 
 //running proc to sleep on an event value
-int sleep(int event){
+int ksleep(int event){
     //record event value in running PROC.event
     //change running PROC.status to SLEEP
     //switch process
@@ -79,7 +79,7 @@ int sleep(int event){
 }
 
 //wake up all processes on the event
-int wakeup(int event){
+int kwakeup(int event){
     //for every proc in the PROC array
     //if proc's SLEEP and event==event
     //  change proc to READY and enter into readyQueue
@@ -108,16 +108,18 @@ int kwait(int *status){
         for(i=1; i<NPROC; i++){
             p = &proc[i];
             if (p->status == ZOMBIE){
-                zpid = p->pid; //get zobie child pid
+                zpid = p->pid; //get zombie child pid
 
+                return zpid;
             }
         }
+    }
 }
 
 //process termination
 int kexit(int exitValue){
     //1. erase process user-mode context, e.g. close file descriptors, 
-    //   release resources, deallocate user-mode image memory, etc.
+    //   release resources, deallocate user-mode image memory, etc.  <-we dont have user context yet so do not implement
     //2. dispose of children processes, if any. 
     //3. record exitValue in PROC.exitCode for parent to get.
     //4. become a ZOMBIE (but do not free the PROC)

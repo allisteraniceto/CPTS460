@@ -116,12 +116,12 @@ int kwakeup(int event){
 //     }
 // }
 
-//process termination
-int kexit(int exitValue){
-    //1. erase process user-mode context, e.g. close file descriptors, 
-    //   release resources, deallocate user-mode image memory, etc.  <-we dont have user context yet so do not implement
-    //2. dispose of children processes, if any. 
-    //3. record exitValue in PROC.exitCode for parent to get.
-    //4. become a ZOMBIE (but do not free the PROC)
-    //5. wakeup parent and, if needed, also the INIT process P1.
-}
+// //process termination
+// int kexit(int exitValue){
+//     //1. erase process user-mode context, e.g. close file descriptors, 
+//     //   release resources, deallocate user-mode image memory, etc.  <-we dont have user context yet so do not implement
+//     //2. dispose of children processes, if any. 
+//     //3. record exitValue in PROC.exitCode for parent to get.
+//     //4. become a ZOMBIE (but do not free the PROC)
+//     //5. wakeup parent and, if needed, also the INIT process P1.
+// }

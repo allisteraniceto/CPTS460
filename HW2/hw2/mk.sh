@@ -4,11 +4,11 @@ echo -en "\ec"
 
 # compile the assembly and c code
 echo compiling
-   as86 -o  s.o  ts.s
+   as86 -o  s.o  s.s
    bcc  -c -ansi  t.c
    bcc  -c -ansi  do_functions.c
    bcc  -c -ansi  kernal.c
-   bcc  -c -ansi  misc_functions.c
+   bcc  -c -ansi  misc.c
    bcc  -c -ansi  queue.c
    
 # link it all into an a.out file

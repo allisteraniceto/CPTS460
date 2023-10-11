@@ -4,6 +4,5 @@
 int body();  
 int initialize();
 help();
-int  color = 0x0C;
 
 #endif

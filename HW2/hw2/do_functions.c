@@ -38,7 +38,7 @@ do_continue(){
     }
     //find the PROC BY pid
     for (i=0; i < NPROC; i++){
-        if(readyQueue->status == STOP){//if PROC.status is STOP, change its status to READY and enter into readyQueue 
+        if(proc[i].status == STOP){//if PROC.status is STOP, change its status to READY and enter into readyQueue 
             p = &proc[i];
             enqueue(&readyQueue, p);
         } 

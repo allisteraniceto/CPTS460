@@ -12,7 +12,7 @@ int body()
         printf("Currently Running Process #%d\n", running->pid);      
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
-		printf("Infput a command [s | q | f | r | ?]:");
+		printf("Infput a command [s | f | q | r | t | c | z | a | k | ?]:");
 		c = getc();
 		switch(c){
 			case 's': //call twsitch() to switch process

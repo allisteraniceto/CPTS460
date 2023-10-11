@@ -84,6 +84,7 @@ PROC *dequeue(PROC **queue){
 	PROC *p = (*queue); //get pprocess from queue
 	if (*queue != NULL){ //if process is not empty
 		*queue = (*queue)->next;
+		p->next = NULL;
 	}
 	return p;
 }

@@ -16,14 +16,13 @@ int body()
 		c = getc();
 		switch(c){
 			case 's': //call twsitch() to switch process
-				tswitch();
-				break;
-			case 'q': //call exit() to exit program
-				printf("quitting...");
-				//exit();
+				do_tswitch();
 				break;
 			case 'f': //kfork() a child process
-				kfork();
+				do_kfork();
+				break;				
+			case 'q': //call do_exit() to make running process die
+				do_exit();
 				break;
 			case 'r': //resurrect all zombie processes
                 printf("ressurct");
@@ -33,6 +32,15 @@ int body()
 				break;
 			case 'c': //continue stopped process
 				do_continue();
+				break;
+			case 'z': //ksleep() to put running to sleep on event value
+				//ksleep(eventValue);
+				break;
+			case 'a': //kwakeup() to wakeup all procs sleeping on event
+				//kwakeup(eventValue);
+				break;
+			case 'k': //kexit for process termination
+				//kexit()
 				break;
 			case '?': //print help instructions
 				help();
@@ -84,10 +92,15 @@ help()
 	//print the info for commands q, f, r, ?
     printf("\nAvailable Commands: \n");
     printf(" - s: Switch to the next ready process.\n");
-	printf(" - q: Exit.\n");
-	printf(" - f: Fork a child process");
-	printf(" - r: Resurrect all zombie processes");
-	printf(" - ?: Display help instructions");
+	printf(" - q: Makes the running process die.\n");
+	printf(" - f: Fork a child process\n");
+	printf(" - t: Stop running process\n");
+	printf(" - c: Let stopped process continue\n");
+	printf(" - z: Put running process to sleep\n");
+	printf(" - a: Wakeup all procs sleeping on the event\n");
+	printf(" - k: Process Termination\n");
+	printf(" - r: Resurrect all zombie processes\n");
+	printf(" - ?: Display help instructions\n");
 }
 // Add new commands
 /****************************************************************

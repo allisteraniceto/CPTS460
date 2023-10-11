@@ -95,26 +95,26 @@ int kwakeup(int event){
     }
 }
 
-//wait for a zombie child 
-int kwait(int *status){
-    int i;
-    int zpid;
-    PROC *p;
-    if (p->ppid == 0){ //if no parent pp
-        return -1;
-    }
-    while(1){ //caller has children
-    //search for any zombie child
-        for(i=1; i<NPROC; i++){
-            p = &proc[i];
-            if (p->status == ZOMBIE){
-                zpid = p->pid; //get zombie child pid
+// //wait for a zombie child 
+// int kwait(int *status){
+//     int i;
+//     int zpid;
+//     PROC *p;
+//     if (p->ppid == 0){ //if no parent pp
+//         return -1;
+//     }
+//     while(1){ //caller has children
+//     //search for any zombie child
+//         for(i=1; i<NPROC; i++){
+//             p = &proc[i];
+//             if (p->status == ZOMBIE){
+//                 zpid = p->pid; //get zombie child pid
 
-                return zpid;
-            }
-        }
-    }
-}
+//                 return zpid;
+//             }
+//         }
+//     }
+// }
 
 //process termination
 int kexit(int exitValue){

@@ -60,7 +60,9 @@ int do_tswitch();
 int do_kfork();
 int do_exit();
 int do_stop();
-int do_continue(int pid);
+int do_continue();
+int do_sleep();
+int do_wakeup();
 
 
 #endif

@@ -29,9 +29,14 @@ do_stop(){
 }
 
 //let stopped process continue
-do_continue(int pid){
+do_continue(){
     PROC *p;
-    int i;
+    int i, pid;
+    char c;
+
+    printf("Enter Process PID to continue: "); //get pid from user
+    c = getc();
+    pid = c - '0'; //ascii values from 0-9
     //ask for pid to be continued (needs to be fixed)
     if (pid < 0 && pid > NPROC){ //validate pid e.g. 0 < pid  < NPROC
         printf("PID Invalid!\n");
@@ -44,5 +49,27 @@ do_continue(int pid){
             enqueue(&readyQueue, p);
         } 
     }
+}
+
+do_sleep(){
+    char c;
+    int event;
+
+    printf("Please enter event value: ");
+    c = getc();
+    event = c - '0';
+
+    ksleep(event);
+}
+
+do_wakeup(){
+    char c;
+    int event;
+
+    printf("Please enter event value: ");
+    c = getc();
+    event = c - '0';
+
+    kwakeup(event);
 }
 

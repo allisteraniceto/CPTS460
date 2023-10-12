@@ -32,16 +32,13 @@ int body()
 				do_stop();
 				break;
 			case 'c': //continue stopped process
-				printf("Enter Process PID to continue: "); //get pid from user
-				c = getc();
-				pid = c - '0'; //convert using ascii
-				do_continue(pid);
+				do_continue();
 				break;
 			case 'z': //ksleep() to put running to sleep on event value
-				//ksleep(eventValue);
+				do_sleep();
 				break;
 			case 'a': //kwakeup() to wakeup all procs sleeping on event
-				//kwakeup(eventValue);
+				do_wakeup();
 				break;
 			case 'k': //kexit for process termination
 				//kexit()

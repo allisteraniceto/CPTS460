@@ -33,7 +33,7 @@ do_continue(int pid){
     PROC *p;
     int i;
     //ask for pid to be continued (needs to be fixed)
-    if (pid > 0 && pid < NPROC){ //validate pid e.g. 0 < pid  < NPROC
+    if (pid < 0 && pid > NPROC){ //validate pid e.g. 0 < pid  < NPROC
         printf("PID Invalid!\n");
         return 0;
     }

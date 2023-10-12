@@ -4,7 +4,7 @@
 int body()
 {
     char c;
-	char pid;
+	int pid;
     while(1)
     {
         // change the text color based on the process id!
@@ -33,7 +33,8 @@ int body()
 				break;
 			case 'c': //continue stopped process
 				printf("Enter Process PID to continue: "); //get pid from user
-				pid = getc()
+				c = getc()
+				pid = c - '0'; //convert using ascii
 				do_continue(pid);
 				break;
 			case 'z': //ksleep() to put running to sleep on event value

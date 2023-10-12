@@ -92,16 +92,16 @@ PROC *dequeue(PROC **queue){
 //6. print the queue entries in [pid, priority]->  format;
 printQueue(PROC *queue)
 {
-    PROC *tmp = queue;
+    PROC *p = queue;
     // if we don't have a queue, say "There are no processes in this queue"
     // if we do, print each item in the queue
-	if (queue == NULL){
+	if (p == NULL){
 		return;
 	}
 	//print queue list
-	while (tmp != NULL){
-		printf("[%d, %d]->",tmp->pid, tmp->priority);
-		tmp = tmp->next;
+	while (p != NULL){
+		printf("[%d, %d]->",p->pid, p->priority);
+		p = p->next;
 	}
 	printf("NULL\n"); //NULL at the end of list
 }

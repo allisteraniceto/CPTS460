@@ -33,7 +33,7 @@ int body()
 				break;
 			case 'c': //continue stopped process
 				printf("Enter Process PID to continue: "); //get pid from user
-				c = getc()
+				c = getc();
 				pid = c - '0'; //convert using ascii
 				do_continue(pid);
 				break;

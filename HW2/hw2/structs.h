@@ -60,7 +60,7 @@ int do_tswitch();
 int do_kfork();
 int do_exit();
 int do_stop();
-int do_continue();
+int do_continue(int pid);
 
 
 #endif

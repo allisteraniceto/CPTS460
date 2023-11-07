@@ -125,3 +125,34 @@ int kwakeup(int event){
 //     //4. become a ZOMBIE (but do not free the PROC)
 //     //5. wakeup parent and, if needed, also the INIT process P1.
 // }
+
+int chpriority(int pid, int pri){
+    PROC *p;
+    int i, ok, reQ;
+
+    if (pid == running->pid){
+        running->pid = pri;
+        if (pri < readyQueue->priority){
+            rflag = 1; //resechedule flag bit set, need to reschedule because lower priority
+        }
+        return 1;
+    }
+    //if process not running
+    for (i = 1; i<NPROC; i++){
+        p = &proc[i];
+        if (p->pid == pid && p->status != FREE){ //if pid matches and process is not free, 
+            p->priority = pri;
+            ok = 1;
+            if (p->status == READY){ //in reqdyQueue, then rearrange ready queue
+                reQ = 1; 
+            }
+        }
+    }
+    if (!ok){
+        printf("chpriority failed\n");
+        return -1;
+    }
+    if (reQ){ //if redo readyQueue set, call reschedule
+        reschedule();
+    }
+}

@@ -33,6 +33,7 @@ typedef struct proc{
 PROC proc[NPROC], *running, *freeList, *readyQueue;
 int  procSize = sizeof(PROC);
 int  color = 0x0C;
+int rflag; //re-schedule flag
 // define the functions so things don't break! cause c!
 
 //misc.c 

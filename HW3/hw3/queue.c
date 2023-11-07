@@ -120,3 +120,15 @@ int scheduler()
 	running = dequeue(&readyQueue); //remove from readyQueue to running
 }
 
+int reschedule()
+{
+	PROC *p, *tempQ = 0;
+	while ( (p=dequeue(&readyQueue)) ){ // reorder readyQueue
+		enqueue(&tempQ, p);
+	}
+	readyQueue = tempQ;
+	rflag = 0; // global reschedule flag back to 0
+	if (running->priority < readyQueue->priority)
+		rflag = 1;
+}
+

@@ -73,3 +73,28 @@ do_wakeup(){
     kwakeup(event);
 }
 
+int do_chpriority(){
+    PROC *p;
+    int i, pid, pri;
+    char c;
+
+    printf("Enter Process PID to continue: "); //get pid from user
+    c = getc();
+    pid = c - '0'; //ascii values from 0-9
+
+    c = getc();
+    pri = c - '0'; //priority num from 0-9
+
+    if (pid < 0 || pid > NPROC){ //validate pid and p e.g. 0 < pid  < NPROC
+        printf("PID Invalid!\n");
+        return 0;
+    }
+    if (pri < 0 || pri > NPROC){
+        printf("Priority Number Invalid!");
+        return 0;
+    }
+
+    //call chpriority()
+    chpriority(pid, pri);
+}
+

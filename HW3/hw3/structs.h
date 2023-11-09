@@ -23,10 +23,12 @@ typedef struct proc{
     int *ksp;    /* saved sp(stack pointer); offset = 2 */
 	int pid;         //the process pid
 	int ppid;        //the parent pid
+    struct proc *parent; //pointer to parent
     int status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
     int priority;       // the priority!
     int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
-    int event;
+    int event; //sleep at an event
+    int exitCode; //exit code
 }PROC;
 
 /**** USE YOUR OWN io.c with YOUR printf() here *****/
@@ -37,6 +39,7 @@ int rflag; //re-schedule flag
 // define the functions so things don't break! cause c!
 
 //misc.c 
+int nproc; //starting proc
 int body();  
 int initialize();
 help();

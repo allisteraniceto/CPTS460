@@ -7,6 +7,11 @@ int body()
 	int pid;
     while(1)
     {
+		if (rflag){ //if reschedule flag set, we need to reschedule running process
+			printf("proc %d: reschedule\n", running->pid);
+			rflag = 0; //reset resechedule flag
+			tswitch(); //give up cpu
+		}
         // change the text color based on the process id!
         color = 0x01 + (running->pid % NPROC); 
         printf("\n******************************\n");
@@ -86,6 +91,7 @@ int initialize()
 	p->ppid = 0;
     p->status = READY;
 	running = p;
+	nproc = 1;
 	printf("init complete");
 }
 

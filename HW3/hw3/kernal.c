@@ -116,6 +116,33 @@ int kwakeup(int event){
 //     }
 // }
 
+int kwait(int *status){
+    PROC *p;
+    int i;
+    int hasChild;
+
+    while(1){
+        for (i=1; i<NPROC; i++){
+            p = &proc[i];
+            if (p->status != FREE && p->ppid == running->pid){ //if proces is not free and the process parent pid matches running pid
+                hasChild=1; //running process has child
+                if (p->status == ZOMBIE){   //lay dead child to rest
+                    *status = p->exitCode;  //collect dead child's exit code
+                    p->status = FREE;       //free dead child's process
+                    enqueue(&freeList, p);  //put proc back to free list
+                    nproc--; //one less process            
+                    return (p->pid);        //return its pid
+                }
+            }
+        }
+        if(!hasChild){ //if running has no child, just return
+            return -1;
+        }
+        ksleep(running); //running porcess still has kids alive, so put process to sleep
+    }
+
+}
+
 // //process termination
 // int kexit(int exitValue){
 //     //1. erase process user-mode context, e.g. close file descriptors, 
@@ -125,6 +152,34 @@ int kwakeup(int event){
 //     //4. become a ZOMBIE (but do not free the PROC)
 //     //5. wakeup parent and, if needed, also the INIT process P1.
 // }
+
+int kexit(int exitValue){
+    PROC* p;
+    int i;
+    int wakeupP1 = 0;
+    if (running->pid == 1 && nproc>2){ //if nproc variable = # of active procs
+        printf("OTHER PROCS NOT DEAD, P1 CANT DIE YET\n");
+        return -1;
+    }
+    //send children (dead or alive) to p1's orphanage
+    for (i=1; i<NPROC; i++){
+        p = &proc[i];
+        if (p->status != FREE && p->ppid == running->pid){ //if child
+            p->ppid = 1; //reassign ppid to first process
+            p->parent = &proc[1]; 
+            wakeupP1++;
+        }
+    }
+    //record exitValue and become a ZOMBIE
+    running->exitCode = exitValue;
+    running->status = ZOMBIE;
+    //wakeup parent and also P1 if necessary 
+    kwakeup(running->parent); // parent sleeps on its PROC address //
+    if (wakeupP1){
+        kwakeup(&proc[1]);
+    }
+    tswitch(); // give up CPU
+}
 
 int chpriority(int pid, int pri){
     PROC *p;

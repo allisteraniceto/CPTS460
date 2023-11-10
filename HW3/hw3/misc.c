@@ -18,7 +18,7 @@ int body()
         printf("Currently Running Process #%d\n", running->pid);      
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
-		printf("Infput a command [s | f | q | r | t | c | z | a | k | ?]:");
+		printf("Infput a command [s | f | q | r | t | c | z | a | k | p | ?]:");
 		c = getc();
 		switch(c){
 			case 's': //call twsitch() to switch process
@@ -108,7 +108,8 @@ help()
 	printf(" - z: Put running process to sleep\n");
 	printf(" - a: Wakeup all procs sleeping on the event\n");
 	printf(" - k: Process Termination\n");
-	printf(" - r: Resurrect all zombie processes\n");
+	//printf(" - r: Resurrect all zombie processes\n");
+	printf(" - p: Change priority of a process");
 	printf(" - ?: Display help instructions\n");
 }
 // Add new commands

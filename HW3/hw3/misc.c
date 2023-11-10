@@ -109,7 +109,7 @@ help()
 	printf(" - a: Wakeup all procs sleeping on the event\n");
 	printf(" - k: Process Termination\n");
 	//printf(" - r: Resurrect all zombie processes\n");
-	printf(" - p: Change priority of a process");
+	printf(" - p: Change priority of a process\n");
 	printf(" - ?: Display help instructions\n");
 }
 // Add new commands

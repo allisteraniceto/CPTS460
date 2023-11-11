@@ -29,6 +29,7 @@ typedef struct proc{
     int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
     int event; //sleep at an event
     int exitCode; //exit code
+    int time;
 }PROC;
 
 /**** USE YOUR OWN io.c with YOUR printf() here *****/
@@ -40,6 +41,7 @@ int rflag; //re-schedule flag
 
 //misc.c 
 int nproc; //starting proc
+int current_time;
 int body();  
 int initialize();
 help();

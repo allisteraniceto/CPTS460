@@ -53,6 +53,7 @@ int body()
 				break;
 			case 'p':
 				do_chpriority();
+				break;
 			default:
 				printf("INVALID CHARACTER");
                 break;

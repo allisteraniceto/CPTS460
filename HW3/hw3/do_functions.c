@@ -55,7 +55,7 @@ do_sleep(){
     char c;
     int event;
 
-    printf("Please enter event value: ");
+    printf("\nPlease enter event value: ");
     c = getc();
     event = c - '0';
 
@@ -66,7 +66,7 @@ do_wakeup(){
     char c;
     int event;
 
-    printf("Please enter event value: ");
+    printf("\nPlease enter event value: ");
     c = getc();
     event = c - '0';
 
@@ -78,10 +78,11 @@ int do_chpriority(){
     int i, pid, pri;
     char c;
 
-    printf("Enter Process PID to continue: "); //get pid from user
+    printf("\nEnter Process PID to continue: "); //get pid from user
     c = getc();
     pid = c - '0'; //ascii values from 0-9
 
+    printf("\nEnter Priority Number to continue: ");
     c = getc();
     pri = c - '0'; //priority num from 0-9
 

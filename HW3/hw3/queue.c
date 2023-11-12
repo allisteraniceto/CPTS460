@@ -114,10 +114,8 @@ Use the MODIFIED scheduler() function propose in class
 int scheduler()
 {
   //Use the MODIFIED scheduler() function propose in class
-	if (running->pid != 0 && running->status == READY){
-		running->priority = current_time + 1;
-	}
-	if (running->status == READY){ 
+	if (running->status == READY && running->pid != 0){ 
+		running->priority = current_time + 1; //now if not running queue and ready, implement aging
 		enqueue(&readyQueue, running); //put running process in readyQueue
 	}
 	running = dequeue(&readyQueue); //remove from readyQueue to running

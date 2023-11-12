@@ -6,8 +6,8 @@ int do_tswitch(){
     if(running->time > 0){ //if there is leftover cpu time
         current_time = running->time; //use current_time to add to next running process
     }
-    tswitch();
     running->time = 5 + current_time; //default 5 time quantum + any leftover
+    tswitch();
 }
 
 int do_kfork(){

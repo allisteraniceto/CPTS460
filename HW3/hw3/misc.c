@@ -22,6 +22,7 @@ int body()
         printf("Currently Running Process #%d\n", running->pid);      
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
+		printf("Current Time: %d", current_time);
 		printf("Infput a command [s | f | q | r | t | c | z | a | k | p | ?]:");
 		c = getc();
 		switch(c){

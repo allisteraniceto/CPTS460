@@ -12,7 +12,6 @@
 #define ZOMBIE    4
 #define DEAD      5
 #define STOP      6
-#define RUNNING   7
 
 // define null, cause it ain't defined otherwise!
 #define NULL  0

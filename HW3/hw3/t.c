@@ -7,7 +7,7 @@
 main()
 {
     printf("MTX starts in main()\n");
-    init();      // initialize and create P0 as running
+    initialize();      // initialize and create P0 as running
     kfork();     // P0 kfork() P1
     while(1){
         printf("P0 running\n");

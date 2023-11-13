@@ -80,15 +80,15 @@ do_wakeup(){
 int do_chpriority(){
     PROC *p;
     int i, pid, pri;
-    char c;
+    char c, d;
 
     printf("\nEnter Process PID to continue: "); //get pid from user
     c = getc();
     pid = c - '0'; //ascii values from 0-9
 
     printf("\nEnter Priority Number to continue: ");
-    c = getc();
-    pri = c - '0'; //priority num from 0-9
+    d = getc();
+    pri = d - '0'; //priority num from 0-9
 
     if (pid < 0 || pid > NPROC){ //validate pid and p e.g. 0 < pid  < NPROC
         printf("PID Invalid!\n");

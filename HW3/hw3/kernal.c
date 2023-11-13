@@ -186,7 +186,7 @@ int chpriority(int pid, int pri){
     int i, ok, reQ;
 
     if (pid == running->pid){
-        running->pid = pri;
+        running->priority = pri;
         if (pri < readyQueue->priority){
             rflag = 1; //resechedule flag bit set, need to reschedule because lower priority
         }

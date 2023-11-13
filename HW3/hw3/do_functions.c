@@ -90,12 +90,12 @@ int do_chpriority(){
     d = getc();
     pri = d - '0'; //priority num from 0-9
 
-    if (pid < 0 || pid > NPROC){ //validate pid and p e.g. 0 < pid  < NPROC
-        printf("PID Invalid!\n");
+    if (pid < 0 || pid >= NPROC){ //validate pid and p e.g. 0 < pid  <= NPROC
+        printf("PID Invalid! (0-9*)\n");
         return 0;
     }
-    if (pri < 0 || pri > NPROC){
-        printf("Priority Number Invalid!");
+    if (pri < 0 || pri >= NPROC){
+        printf("Priority Number Invalid! (0-9*)");
         return 0;
     }
     printf("PID entered: %d", pid);

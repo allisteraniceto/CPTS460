@@ -121,6 +121,7 @@ int scheduler()
 		enqueue(&readyQueue, running); //put running process in readyQueue
 	}
 	running = dequeue(&readyQueue); //remove from readyQueue to running
+	rflag = 0; //rest resechedule flag
 }
 
 int reschedule()

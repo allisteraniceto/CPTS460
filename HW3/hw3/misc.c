@@ -12,18 +12,18 @@ int body()
 			do_tswitch();
 		}
 		if (rflag){ //if reschedule flag set, we need to reschedule running process
-			printf("proc %d: reschedule\n", running->pid);
+			printf("\nproc %d: reschedule\n", running->pid);
 			rflag = 0; //reset resechedule flag
 			tswitch(); //give up cpu
 		}
         // change the text color based on the process id!
         color = 0x01 + (running->pid % NPROC); 
         printf("\n******************************\n");
-        printf("Currently Running Process #%d\n", running->pid);      
+        printf("Currently Running Process #%d\n", running->pid);
+		printf("Running Queue: ");
+		printQueue(running);      
     	printf("Ready Queue: ");
 		printQueue(readyQueue);
-		printf("Running Queue: ");
-		printQueue(running);
 		printf("Running Process Time: %d\n", running->time);
 		printf("Infput a command [s | f | q | r | t | c | z | a | k | p | ?]:");
 		c = getc();

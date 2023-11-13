@@ -193,7 +193,7 @@ int chpriority(int pid, int pri){
         return 1;
     }
     //if process not running
-    for (i = 1; i<NPROC; i++){
+    for (i = 1; i<NPROC; i++){ //starts at 1 because cannot change process 1 priority (will always be 0)
         p = &proc[i];
         if (p->pid == pid && p->status != FREE){ //if pid matches and process is not free, 
             p->priority = pri;

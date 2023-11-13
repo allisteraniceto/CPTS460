@@ -98,6 +98,8 @@ int do_chpriority(){
         printf("Priority Number Invalid!");
         return 0;
     }
+    printf("PID entered: %d", pid);
+    printf("Priority entered: %d", pri);
 
     //call chpriority()
     chpriority(pid, pri);

@@ -116,6 +116,7 @@ int kwakeup(int event){
 //     }
 // }
 
+//running process waits for child. if child a zombie, collect exitCode and free resources
 int kwait(int *status){
     PROC *p;
     int i;
@@ -153,6 +154,7 @@ int kwait(int *status){
 //     //5. wakeup parent and, if needed, also the INIT process P1.
 // }
 
+//runnning process termination and sends children to orphanage
 int kexit(int exitValue){
     PROC* p;
     int i;
@@ -181,6 +183,7 @@ int kexit(int exitValue){
     tswitch(); // give up CPU
 }
 
+//change priority of a process and reschedule if needed
 int chpriority(int pid, int pri){
     PROC *p;
     int i, ok, reQ;

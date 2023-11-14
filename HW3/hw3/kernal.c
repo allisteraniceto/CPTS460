@@ -159,9 +159,14 @@ int kexit(int exitValue){
     PROC* p;
     int i;
     int wakeupP1 = 0;
-    if (running->pid == 1 && nproc>2){ //if P1 AND nproc variable = # of active procs
-        printf("OTHER PROCS NOT DEAD, P1 CANT DIE YET\n");
-        return -1;
+    //if P1 (default process) has children, cannot kill yet
+    if (running->pid == 1 && nproc>2){ //nproc variable = # of active procs
+        for (i=1; i<NPROC; i++){ //search for children
+            if (proc[i].status == FREE && proc[i].pid == proc[1].pid){
+                printf("OTHER PROCS NOT DEAD, P1 CANT DIE YET\n");
+                return i; //return pid of process that is a child
+            }
+        }
     }
     //send children (dead or alive) to p1's orphanage
     for (i=1; i<NPROC; i++){
@@ -181,6 +186,7 @@ int kexit(int exitValue){
         kwakeup(&proc[1]);
     }
     tswitch(); // give up CPU
+    return -1;
 }
 
 //change priority of a process and reschedule if needed

@@ -77,6 +77,17 @@ do_wakeup(){
     kwakeup(event);
 }
 
+do_wait(){
+    int pid, status;
+    pid = kwait(&status); //pass in status and retreive exitCode
+    if(pid == -1){
+        printf("\nProcess has no children to wait for!");
+    }else{
+        printf("\npid=%d, status=%d\n", pid, status);
+    }
+    return 1;
+}
+
 do_kexit(){
     char c;
     int event;

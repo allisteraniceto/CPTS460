@@ -55,11 +55,14 @@ int body()
 			case 'k': //kexit for process termination
 				do_kexit();
 				break;
-			case '?': //print help instructions
-				help();
+			case 'w':
+				do_wait();
 				break;
 			case 'p':
 				do_chpriority();
+				break;
+			case '?': //print help instructions
+				help();
 				break;
 			default:
 				printf("INVALID CHARACTER");

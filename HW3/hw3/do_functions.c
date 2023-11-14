@@ -78,7 +78,21 @@ do_wakeup(){
 }
 
 do_kexit(){
-    kexit(0);
+    char c;
+    int event;
+    int value;
+
+    printf("\nPlease enter event value: ");
+    c = getc(); //events 0-9
+    event = c - '0';
+
+    value = kexit(event);
+
+    if (value == -1){
+        printf("\n Running Process has become a zombie!");
+    }else{
+        printf("\nP%d can't be killed while it has active children. At least P%d is active!\n", 1, value); //P1 (default process)
+    }
 }
 
 int do_chpriority(){

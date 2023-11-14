@@ -159,7 +159,7 @@ int kexit(int exitValue){
     PROC* p;
     int i;
     int wakeupP1 = 0;
-    if (running->pid == 1 && nproc>2){ //if nproc variable = # of active procs
+    if (running->pid == 1 && nproc>2){ //if P1 AND nproc variable = # of active procs
         printf("OTHER PROCS NOT DEAD, P1 CANT DIE YET\n");
         return -1;
     }

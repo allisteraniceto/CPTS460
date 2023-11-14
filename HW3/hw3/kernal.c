@@ -181,7 +181,7 @@ int kexit(int exitValue){
     running->exitCode = exitValue;
     running->status = ZOMBIE;
     //wakeup parent and also P1 if necessary 
-    kwakeup(running->parent); // parent sleeps on its PROC address //
+    kwakeup(running->ppid); // parent sleeps on its PROC address //
     if (wakeupP1){
         kwakeup(&proc[1]);
     }

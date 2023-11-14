@@ -160,7 +160,7 @@ int kexit(int exitValue){
     int i;
     int wakeupP1 = 0;
     //if P1 (default process) has children, cannot kill yet
-    if (running->pid == 1 && nproc>2){ //nproc variable = # of active procs
+    if (running->pid == 1){ //nproc variable = # of active procs
         for (i=1; i<NPROC; i++){ //search for children
             if (proc[i].status == FREE && proc[i].ppid == proc[1].pid){
                 printf("OTHER PROCS NOT DEAD, P1 CANT DIE YET\n");

@@ -53,7 +53,7 @@ int body()
 				do_wakeup();
 				break;
 			case 'k': //kexit for process termination
-				//kexit()
+				do_kexit();
 				break;
 			case '?': //print help instructions
 				help();

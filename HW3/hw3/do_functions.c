@@ -77,6 +77,10 @@ do_wakeup(){
     kwakeup(event);
 }
 
+do_kexit(){
+    kexit(0);
+}
+
 int do_chpriority(){
     PROC *p;
     int i, pid, pri;

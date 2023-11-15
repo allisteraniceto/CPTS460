@@ -131,7 +131,7 @@ int kwait(int *status){
                     *status = p->exitCode;  //collect dead child's exit code
                     p->status = FREE;       //free dead child's process
                     enqueue(&freeList, p);  //put proc back to free list
-                    nproc--; //one less process            
+                    //nproc--; //one less process            
                     return (p->pid);        //return its pid
                 }
             }

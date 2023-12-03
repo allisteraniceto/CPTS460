@@ -7,10 +7,10 @@ int body()
 	int pid;
     while(1)
     {
-		// if (running->time == 0){ //if time reaches 0, switch
-		// 	current_time = 0; //0 cpu time left
-		// 	do_tswitch();
-		// }
+		if (running->time == 0){ //if time reaches 0, switch
+			current_time = 0; //0 cpu time left
+			do_tswitch();
+		}
 		if (rflag){ //if reschedule flag set, we need to reschedule running process
 			printf("\nproc %d: reschedule\n", running->pid);
 			rflag = 0; //reset resechedule flag
@@ -69,8 +69,8 @@ int body()
                 break;
 		}
 		//decrement running process by for each command executed
-		// running->time -= 1;
-		// current_time = running->time;
+		running->time -= 1;
+		current_time = running->time;
 	}
 }
 
@@ -122,7 +122,7 @@ help()
 	printf(" - a: Wakeup all procs sleeping on the event\n");
 	printf(" - k: Process Termination\n");
 	//printf(" - r: Resurrect all zombie processes\n");
-	printf(" - w: Wait for Child Process Termination");
+	printf(" - w: Wait for Child Process Termination\n");
 	printf(" - p: Change priority of a process\n");
 	printf(" - ?: Display help instructions\n");
 }

@@ -17,10 +17,16 @@
 #define NULL  0
 #define null  0
 
+//for unsigned int
+typedef unsigned char   u8;
+typedef unsigned short u16;
+typedef unsigned long  u32;
+
 // 1. Define the structure PROC 
 typedef struct proc{
     struct proc *next; //next pointer;   
     int *ksp;    /* saved sp(stack pointer); offset = 2 */
+    int    uss, usp;           // at offsets 4,6
 	int pid;         //the process pid
 	int ppid;        //the parent pid
     struct proc *parent; //pointer to parent

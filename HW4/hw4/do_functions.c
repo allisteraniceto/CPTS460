@@ -10,6 +10,11 @@ int do_tswitch(){
     tswitch();
 }
 
+int do_kforkcustom()
+{
+    kfork("/bin/u1");
+}
+
 int do_kfork(){
     PROC *p = kfork();
     if (p==0){

@@ -1,4 +1,4 @@
-.globl _tswitch,_getc,_putc,_getebp                 ! EXPORT these 
+.globl _tswitch,_getc,_putc,_getebp,_setds        ! EXPORT these 
 .globl _main,_running,_scheduler,_proc,_procSize,_color  ! IMPORT these
 
 start:
@@ -60,4 +60,9 @@ _putc:
         pop    bp
         ret
 
-
+_setds:
+	push bp			
+	mov  bp,sp		
+	mov  ds,4[bp]		! load ds with segment value
+	pop  bp
+	ret

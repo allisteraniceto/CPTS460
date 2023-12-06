@@ -7,7 +7,7 @@ int do_tswitch(){
         current_time = running->time; //use current_time to add to next running process
     }
     tswitch();
-    running->time = 5 + current_time; //default 5 time quantum + any leftover
+    running->time = 5 + current_time + 1; //default 5 time quantum + any leftover + twsitch doesn't take cpu time
 }
 
 int do_kforkcustom()

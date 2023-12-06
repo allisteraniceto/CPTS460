@@ -22,6 +22,8 @@ typedef unsigned char   u8;
 typedef unsigned short u16;
 typedef unsigned long  u32;
 
+#define MTXSEG 0x1000
+
 // 1. Define the structure PROC 
 typedef struct proc{
     struct proc *next; //next pointer;   

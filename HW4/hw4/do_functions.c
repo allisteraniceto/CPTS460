@@ -12,7 +12,7 @@ int do_tswitch(){
 
 int do_kforkcustom()
 {
-    kfork("/bin/u1");
+    kforkcustom("/bin/u1");
 }
 
 int do_kfork(){

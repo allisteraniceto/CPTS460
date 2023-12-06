@@ -75,6 +75,7 @@ int do_stop();
 int do_continue();
 int do_sleep();
 int do_wakeup();
+int do_kforkcustom(char *filename);
 
 
 #endif

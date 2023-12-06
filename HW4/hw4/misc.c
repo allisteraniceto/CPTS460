@@ -62,6 +62,8 @@ int body()
 			case 'p':
 				do_chpriority();
 				break;
+			case 'k': //kforkcustom()
+				do_kforkcustom(); 
 			case '?': //print help instructions
 				help();
 				break;
@@ -125,6 +127,7 @@ help()
 	//printf(" - r: Resurrect all zombie processes\n");
 	printf(" - w: Wait for Child Process Termination\n");
 	printf(" - p: Change priority of a process\n");
+	printf(" - k: Preform custom kfork\n")
 	printf(" - ?: Display help instructions\n");
 }
 // Add new commands

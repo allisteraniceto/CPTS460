@@ -8,6 +8,7 @@ int body()
     while(1)
     {
 		if (running->time == 0){ //if time reaches 0, switch
+			running->time = 0; //reset process time to 0;
 			current_time = 0; //0 cpu time left
 			do_tswitch();
 		}

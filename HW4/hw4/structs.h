@@ -65,6 +65,7 @@ int enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
 int printQueue(PROC *queue);
 int scheduler();
+int reschedule();
 
 //kernel.c
 PROC *kfork();

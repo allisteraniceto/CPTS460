@@ -13,7 +13,7 @@ ld86 -d -o mtx ts.o t.o int.o kernel.o misc.o do_functions.o mtxlib /usr/lib/bcc
 mount -o loop $VFD /mnt
 cp a.out /mnt/boot/mtx
 umount /mnt
-rm *.o mtx
+#rm *.o mtx
 
 (cd USER; ./mku u1)
 cp mtximage oldimage

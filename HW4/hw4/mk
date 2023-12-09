@@ -8,7 +8,7 @@ bcc  -c -ansi  kernel.c
 bcc  -c -ansi  misc.c
 bcc  -c -ansi  queue.c
 
-ld86 -d -o mtx ts.o t.o do_functions.o kernel.o misc.o queue.o mtxlib /usr/lib/bcc/libc.a
+ld86 -d -o mtx ts.o t.o do_functions.o kernel.o misc.o queue.o int.o mtxlib /usr/lib/bcc/libc.a
 
 mount -o loop $VFD /mnt
 cp a.out /mnt/boot/mtx

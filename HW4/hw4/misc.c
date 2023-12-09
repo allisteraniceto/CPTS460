@@ -5,11 +5,13 @@ int body()
 {
     char c;
 	int pid;
+	int t_flag; //if wrong command or switch, do not subtract time
     while(1)
     {
+		t_flag = 1;
 		if (running->time == 0){ //if time reaches 0, switch
 			running->time = 0; //reset process time to 0;
-			current_time = 0; //0 cpu time left
+			remaining_time = 0; //0 cpu time left
 			do_tswitch();
 		}
 		if (rflag){ //if reschedule flag set, we need to reschedule running process
@@ -31,6 +33,7 @@ int body()
 		switch(c){
 			case 's': //call twsitch() to switch process
 				do_tswitch();
+				t_flag = 0;
 				break;
 			case 'f': //kfork() a child process
 				do_kfork();
@@ -62,18 +65,21 @@ int body()
 			case 'p':
 				do_chpriority();
 				break;
-			case 'k': //kforkcustom()
+			case 'd': //kforkcustom()
 				do_kforkcustom(); 
 			case '?': //print help instructions
 				help();
 				break;
 			default:
 				printf("INVALID CHARACTER");
+				t_flag = 0;
                 break;
 		}
 		//decrement running process by for each command executed
-		running->time -= 1;
-		current_time = running->time;
+		if(t_flag){ //time flag is true, subtract
+			running->time -= 1;
+			remaining_time = running->time;
+		}
 	}
 }
 
@@ -127,7 +133,7 @@ help()
 	//printf(" - r: Resurrect all zombie processes\n");
 	printf(" - w: Wait for Child Process Termination\n");
 	printf(" - p: Change priority of a process\n");
-	printf(" - k: Preform custom kfork\n")
+	printf(" - d: Preform custom kfork\n");
 	printf(" - ?: Display help instructions\n");
 }
 // Add new commands

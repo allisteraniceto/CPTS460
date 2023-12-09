@@ -49,7 +49,7 @@ int rflag; //re-schedule flag
 
 //misc.c 
 int nproc; //starting proc
-int current_time;
+int remaining_time;
 int body();  
 int initialize();
 help();
@@ -68,6 +68,7 @@ int ksleep(int event);
 int kwakeup(int event);
 int kwait(int *status);
 int kexit(int exitValue);
+int kforkcustom(*char filename);
 
 //do_functions.c
 int do_tswitch();
@@ -77,7 +78,7 @@ int do_stop();
 int do_continue();
 int do_sleep();
 int do_wakeup();
-int do_kforkcustom(char *filename);
+int do_kforkcustom();
 
 
 #endif

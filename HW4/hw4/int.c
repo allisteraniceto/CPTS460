@@ -1,7 +1,7 @@
 #ifndef INT_C
 #define INT_C
 
-#include "type.h"
+#include "structs.h"
 
 /*************************************************************************
   usp  1   2   3   4   5   6   7   8   9  10   11   12    13  14  15  16
@@ -84,12 +84,12 @@ int kpd()
             case READY:
                 printf("READY        ");
                 break;
-            case RUNNING:
-                printf("RUNNING      ");
-                break;
-            case STOPPED:
-                printf("STOPPED      ");
-                showexitcode = true;
+            // case RUNNING:
+            //     printf("RUNNING      ");
+            //     break;
+            // case STOPPED:
+            //     printf("STOPPED      ");
+            //     showexitcode = true;
                 break;
             case SLEEP:
                 printf("SLEEP        ");

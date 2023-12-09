@@ -24,20 +24,24 @@ typedef unsigned long  u32;
 
 #define MTXSEG 0x1000
 
+// Bool definition
+typedef enum { false, true } bool;
+
 // 1. Define the structure PROC 
 typedef struct proc{
     struct proc *next; //next pointer;   
-    int *ksp;    /* saved sp(stack pointer); offset = 2 */
+    int    *ksp;    /* saved sp(stack pointer); offset = 2 */
     int    uss, usp;           // at offsets 4,6
-	int pid;         //the process pid
-	int ppid;        //the parent pid
+	int    pid;         //the process pid
+	int    ppid;        //the parent pid
     struct proc *parent; //pointer to parent
-    int status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
-    int priority;       // the priority!
-    int kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
-    int event; //sleep at an event
-    int exitCode; //exit code
-    int time;
+    int    status;       /* FREE|READY|SLEEP|BLOCK|ZOMBIE */
+    int    priority;       // the priority!
+    int    kstack[SSIZE];       // kmode(kernel mode)stack of task. SSIZE = 1024.
+    int    event; //sleep at an event
+    int    exitCode; //exit code
+    int    time;
+    char   name[32];
 }PROC;
 
 /**** USE YOUR OWN io.c with YOUR printf() here *****/

@@ -68,7 +68,7 @@ int ksleep(int event);
 int kwakeup(int event);
 int kwait(int *status);
 int kexit(int exitValue);
-int kforkcustom(*char filename);
+int kforkcustom(char *filename);
 
 //do_functions.c
 int do_tswitch();

@@ -11,7 +11,7 @@ bcc  -c -ansi  queue.c
 ld86 -d -o mtx ts.o t.o int.o kernel.o misc.o do_functions.o mtxlib /usr/lib/bcc/libc.a
 
 mount -o loop $VFD /mnt
-cp mtx /mnt/boot
+cp a.out /mnt/boot/mtx
 umount /mnt
 rm *.o mtx
 

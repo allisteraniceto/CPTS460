@@ -56,10 +56,10 @@ help();
 
 //queue.c
 PROC *get_proc(PROC **list);
-put_proc(PROC **list, PROC *p);
-enqueue(PROC **queue, PROC *p);
+int put_proc(PROC **list, PROC *p);
+int enqueue(PROC **queue, PROC *p);
 PROC *dequeue(PROC **queue);
-printQueue(PROC *queue);
+int printQueue(PROC *queue);
 int scheduler();
 
 //kernel.c
@@ -80,5 +80,14 @@ int do_sleep();
 int do_wakeup();
 int do_kforkcustom();
 
+//int.c
+int kcinth();
+int kgetpid();
+int kpd();
+int kchname(char *name);
+int kkfork();
+int ktswitch();
+int kkwait(int *status);
+int kkexit(int value);
 
 #endif

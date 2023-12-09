@@ -4,7 +4,7 @@ as86 -o  ts.o  ts.s
 bcc  -c -ansi  t.c
 bcc  -c -ansi  int.c
 bcc  -c -ansi  do_functions.c
-bcc  -c -ansi  kernal.c
+bcc  -c -ansi  kernel.c
 bcc  -c -ansi  misc.c
 bcc  -c -ansi  queue.c
 

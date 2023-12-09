@@ -7,13 +7,13 @@ echo compiling
    as86 -o  s.o  s.s
    bcc  -c -ansi  t.c
    bcc  -c -ansi  do_functions.c
-   bcc  -c -ansi  kernal.c
+   bcc  -c -ansi  kernel.c
    bcc  -c -ansi  misc.c
    bcc  -c -ansi  queue.c
    
 # link it all into an a.out file
 echo linking
-   ld86 -d s.o t.o do_functions.o kernal.o misc.o queue.o mtxlib mylib /usr/lib/bcc/libc.a
+   ld86 -d s.o t.o do_functions.o kernel.o misc.o queue.o mtxlib mylib /usr/lib/bcc/libc.a
 
 # copy the a.out file into the os
 echo cp a.out to mtximage/boot/mtx
